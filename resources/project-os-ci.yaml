@@ -1,0 +1,20 @@
+﻿kind: Project
+apiVersion: project.openshift.io/v1
+metadata:
+  name: os-ci
+  selfLink: /apis/project.openshift.io/v1/projects/os-ci
+  uid: 87ddb30d-9e6c-4045-8e1f-790b081fbb61
+  resourceVersion: '305888'
+  creationTimestamp: '2020-05-06T13:48:25Z'
+  annotations:
+    openshift.io/description: ''
+    openshift.io/display-name: ''
+    openshift.io/requester: 'kube:admin'
+    openshift.io/sa.scc.mcs: 's0:c24,c9'
+    openshift.io/sa.scc.supplemental-groups: 1000570000/10000
+    openshift.io/sa.scc.uid-range: 1000570000/10000
+spec:
+  finalizers:
+    - kubernetes
+status:
+  phase: Active

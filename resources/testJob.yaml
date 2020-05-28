@@ -1,0 +1,24 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: kubevirt-test-pr
+spec:
+  serviceAccountName: default
+  parallelism: 1    
+  completions: 1    
+  backoffLimit: 3 
+  template:         
+    metadata:
+      name: kubevirt-test-pr
+    spec:
+      containers:
+      - name: kubevirt-test-pr
+      #  image: dhiller/kubevirt-test-pr
+        image: image-registry.openshift-image-registry.svc:5000/default/kubevirt-test-pr:latest
+        resources:
+          requests:
+            cpu: 1
+            memory: 5Gi
+          limits:
+            memory: 16Gi
+      restartPolicy: Never
