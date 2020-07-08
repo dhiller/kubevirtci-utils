@@ -13,7 +13,7 @@ fi
 if oc get job kubevirt-test-pr; then
     oc delete job kubevirt-test-pr
 fi
-oc create -f $SCRIPT_DIR/../resources/testJob.yaml
+oc create -f $SCRIPT_DIR/../../resources/testJob.yaml
 while [ $(oc describe job kubevirt-test-pr | grep 'Created pod' | wc -l) -eq 0 ]; do
     sleep 1
 done

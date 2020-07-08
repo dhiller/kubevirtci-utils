@@ -5,7 +5,7 @@ SCRIPT_DIR=$(cd "$(dirname "$0")" && pwd)
 set -euo pipefail
 
 if [ $(oc get projects --no-headers | grep os-ci | wc -l) -eq 0 ]; then
-    oc create -f $SCRIPT_DIR/../resources/project-os-ci.yaml
+    oc create -f $SCRIPT_DIR/../../resources/project-os-ci.yaml
 fi
 #oc project os-ci
 export openshift_registry=$(oc get route default-route -n openshift-image-registry --template='{{ .spec.host }}')
