@@ -33,7 +33,6 @@ SHARED_DIR="$SCRIPT_DIR"
 cp "$(bash "$BASE_DIR/download-oc.sh")" "$SHARED_DIR"
 ( cd "$SHARED_DIR"; ln -s oc kubectl ) || exit 1
 
-echo "#!/bin/bash" > "$SCRIPT_DIR/test.sh"
 yq -r '.tests[0].steps.test[0].commands' "$configuration_file" >> "$SCRIPT_DIR/test.sh"
 if [ "$(cat "$SCRIPT_DIR/test.sh")" == 'null' ]; then
     yq -r '.tests[0].commands' "$configuration_file" > "$SCRIPT_DIR/test.sh"
@@ -68,7 +67,7 @@ docker run -it --network host \
     -e REPO_OWNER=kubevirt \
     -e REPO_NAME=kubevirt \
     -e JOB_NAME="$(echo "$(yq -r '.presets[].env[] | " -e "+.name+"="+.value' /home/dhiller/Projects/github.com/kubevirt.io/project-infra/github/ci/prow/files/jobs/kubevirt/kubevirt/kubevirt-presets.yaml | tr '\n' ' ')")" \
-    --rm "${TEST_IMAGE}" '/tmp/scripts/test.sh' \
+    --rm "${TEST_IMAGE}" "$(cat "$SCRIPT_DIR/test.sh")" \
 || (
     #cat "$SCRIPT_DIR/test.sh"
     #ls -la "$SHARED_DIR"
